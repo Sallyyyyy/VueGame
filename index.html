@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app" class="container">
+    <!-- 血條介面 -->
+    <section class="row">
+        <div class="col">
+                <h1 class="text-center">YOU</h1>
+                <div
+                    class="healthbar text-center"
+                    style="background-color: green; margin: 0; color: white;"
+                    :style="{width: playerHealth + '%'}">
+                    {{ playerHealth }}
+                </div>     
+        </div>
+        <div class="col">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar text-center"
+            style="background-color: green; margin: 0; color: white;"
+                    :style="{width: monsterHealth + '%'}">
+                    {{ monsterHealth }}
+            </div>
+        </div>
+    </section>
+
+    <!-- Controls: Start the game -->
+    <section class="row controls" v-if="!gameIsRunning">
+        <div class="col">
+            <button class="text-center align-self-center" id="start-game" @click="startGame">START NEW GAMES</button>
+        </div>
+
+    </section>
+    
+    <!-- Controls:  -->
+    <section class="row controls" v-else>
+        <div class="col">
+            <button class="text-center align-self-center" id="attack" @click="attack(10)">ATTACK</button>
+            <button class="text-center align-self-center" id="give-up" @click="giveUp">GIVE UP</button>
+        </div>
+    </section>
+
+    <section class="row log" >
+        <h1 class="text-center">Game Log</h1>
+        <div class="col">
+            <h2>{{consoleMsg}}</h2>
+            <ul>
+                <li v-for = "turn in turns" v-bind:class="{'player-turn':turn.isPlayer,'monster-turn':!turn.isPlayer}"> 
+                    {{turn.text}} 
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
